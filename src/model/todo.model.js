@@ -1,8 +1,4 @@
-const mongoose = require('mongoose');
-
-mongoose.connect(process.env.DB_CONNECTION_STRING, {
-  useNewUrlParser: true, useUnifiedTopology: true
-})
+const mongoose = require('../utils/db')
 
 const TodoSchema = new mongoose.Schema({
   title: {

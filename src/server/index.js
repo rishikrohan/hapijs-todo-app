@@ -16,7 +16,7 @@ const setupServer = async () => {
         credentials: true // boolean - 'Access-Control-Allow-Credentials'
       }
     }
-
+    
   });
 
   server.log(['subsystem'], 'third way for accessing it')
