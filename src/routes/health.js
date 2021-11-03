@@ -9,7 +9,7 @@ const validate =  {
 module.exports = [
   {
     method: 'GET',
-    path: '/health/{value}',
+    path: '/health',
     options: {
       auth: false,
       tags: ['api', 'health'],

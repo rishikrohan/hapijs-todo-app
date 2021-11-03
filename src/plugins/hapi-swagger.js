@@ -7,7 +7,6 @@ const options = {
   },
 };
 
-
 const swagger = {
   plugin: hapiSwagger,
   options: options,
