@@ -18,20 +18,21 @@ beforeEach(() => {
 describe("TodoController.createTodo", () => {
 
   it("should call TodoModel.create", () => {
-    req.body = newTodo;
+    req.payload = newTodo; 
     TodoController.createTodo(req, res);
     expect(ToDoModel.create).toBeCalled(); // without mock test args
     expect(ToDoModel.create).toBeCalledWith(newTodo); // with mock test args
   });
 
   it("should return 200 response code", () => {
-    req.body = newTodo;
+    req.payload = newTodo;
     TodoController.createTodo(req, res);
     expect(res.statusCode).toBe(200);
     expect(res.statusMessage).toBe("OK");
   });
 
   it("should return json body in response", () => {
+    req.payload = newTodo;
     ToDoModel.create.mockReturnValue(newTodo);
     TodoController.createTodo(req, res);
     expect(res).toBeInstanceOf(Object);
