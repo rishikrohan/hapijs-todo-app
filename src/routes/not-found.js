@@ -7,7 +7,7 @@ module.exports = [
       auth: false,
       tags: ['api', '404'],
     },
-    handler: function (request, h) {
+    handler: function () {
       return '404 Error! Page Not Found!';
     }
   }
