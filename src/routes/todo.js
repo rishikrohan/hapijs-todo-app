@@ -4,10 +4,16 @@ const TodoModel = require('../model/todo.model');
 
 
 
-const todoSchema = Joi.object({
+const createTodoSchema = Joi.object({
   title: Joi.string().min(1).max(140).required(),
   done: Joi.boolean().required(),
   priority: Joi.number().min(1).max(5).required(),
+})
+
+const changeTodoSchema = Joi.object({
+  title: Joi.string().min(1).max(140),
+  done: Joi.boolean(),
+  priority: Joi.number().min(1).max(5),
 })
 
 const todoIDSchema = Joi.object({
@@ -16,7 +22,7 @@ const todoIDSchema = Joi.object({
 
 const createTodoValidate = {
   validate: {
-    payload: todoSchema,
+    payload: createTodoSchema,
   }
 }
 
@@ -37,7 +43,7 @@ const getTodoByIDValidate = {
 const changeTodoValidate = {
   validate: {
     params: todoIDSchema,
-    payload: todoSchema,
+    payload: changeTodoSchema,
   }
 }
 

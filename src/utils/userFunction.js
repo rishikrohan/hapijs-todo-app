@@ -31,7 +31,7 @@ async function verifyCredentials(req) {
   // matches either the email or username
   const user = await UserModel.findOne({
     $or: [
-      { email: req.payload.email },
+      { email: req.payload.username },
       { username: req.payload.username }
     ]
   })

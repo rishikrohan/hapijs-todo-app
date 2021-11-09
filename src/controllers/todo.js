@@ -33,7 +33,7 @@ const createTodo = async (req, h) => {
 
 const getTodoByID = async (req, h) => {
   const {id} = req.params
-  const result = await TodoModel.find({_id: id});
+  const result = await TodoModel.find({_id: id, userId: req.user._id});
   return h
     .response({
       status: 'OK!', 
@@ -44,9 +44,9 @@ const getTodoByID = async (req, h) => {
 }
 
 const changeTodo = async (req, h) => {
-  const {title, done} = req.payload
+  const {title, done, priority} = req.payload
   const {id} = req.params
-  await TodoModel.findOneAndUpdate({_id: id}, {title, done});
+  await TodoModel.findOneAndUpdate({_id: id, userId: req.user._id}, {title, done, priority});
   return h
     .response({
       status: 'OK!', 
@@ -57,7 +57,7 @@ const changeTodo = async (req, h) => {
 
 const deleteTodo = async (req, h) => {
   const {id} = req.params
-  await TodoModel.findOneAndDelete({_id: id});
+  await TodoModel.findOneAndDelete({_id: id, userId: req.user._id});
   return h
     .response({
       status: 'OK!', 

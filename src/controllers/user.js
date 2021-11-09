@@ -7,11 +7,8 @@ const createUser = async (req, h) => {
   const {username, password, email} = req.payload
   let user = new UserModel();
   try {
-    console.log(1);
     const hash = await hashPassword(password)
-    console.log(hash); 
     user = await UserModel.create({ username, password: hash, email });
-    console.log(3);
   }
   catch(err) {
     throw Boom.badRequest(err);
