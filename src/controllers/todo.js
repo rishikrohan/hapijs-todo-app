@@ -1,3 +1,4 @@
+const Boom = require('boom');
 const TodoModel = require('../model/todo.model');
 
 /**
@@ -7,23 +8,73 @@ const TodoModel = require('../model/todo.model');
  * @returns
  */
 const getTodo = async (req, h) => {
-  req.logger.info('In handler %s', req.path)
-  const result = await TodoModel.find();
-  return h
-    .response({
-      status: 'OK!', 
-      data: result
-    })
-    .code(200);
+  try {
+    const result = await TodoModel.find({ userId: req.user._id });
+    return h
+      .response({
+        status: 'OK!',
+        data: result,
+      })
+      .code(200);
+  } catch (err) {
+    throw Boom.badRequest(err);
+  }
 };
 
 /**
  * function to save todo
  */
-const createTodo = (req, h) => {
-  const {title, done} = req.payload
-  const result = TodoModel.create({ title, done });
-  return result;
-}
+const createTodo = async (req, h) => {
+  const { title, done, priority } = req.payload;
+  try {
+    const result = await TodoModel.create({
+      title, done, priority, date: Date.now(), userId: req.user._id,
+    });
+    return h
+      .response({
+        status: 'OK!',
+        data: result,
+      })
+      .code(200);
+  } catch (err) {
+    throw Boom.badRequest(err);
+  }
+};
 
-module.exports = { getTodo, createTodo };
+const getTodoByID = async (req, h) => {
+  const { id } = req.params;
+  const result = await TodoModel.find({ _id: id, userId: req.user._id });
+  return h
+    .response({
+      status: 'OK!',
+      data: result,
+    })
+    .code(200);
+};
+
+const changeTodo = async (req, h) => {
+  const { title, done, priority } = req.payload;
+  const { id } = req.params;
+  await TodoModel.findOneAndUpdate({ _id: id, userId: req.user._id }, { title, done, priority });
+  return h
+    .response({
+      status: 'OK!',
+      data: 'Change todo successfully',
+    })
+    .code(200);
+};
+
+const deleteTodo = async (req, h) => {
+  const { id } = req.params;
+  await TodoModel.findOneAndDelete({ _id: id, userId: req.user._id });
+  return h
+    .response({
+      status: 'OK!',
+      data: 'Delete todo successfully',
+    })
+    .code(200);
+};
+
+module.exports = {
+  getTodo, createTodo, getTodoByID, changeTodo, deleteTodo,
+};

@@ -1,4 +1,3 @@
-const Joi = require('joi');
 const { health } = require('../controllers/health');
 
 module.exports = [
@@ -7,8 +6,8 @@ module.exports = [
     path: '/health',
     options: {
       auth: false,
-      tags: ['api', 'health']
+      tags: ['api', 'health'],
     },
-    handler: health
-  }
+    handler: health,
+  },
 ];
