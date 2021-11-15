@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "lint": "./node_modules/.bin/eslint",
     "start": "nodemon src/index.js"
   },
   "author": "rishik",
@@ -23,10 +24,17 @@
     "hapi-pino": "^8.5.0",
     "hapi-swagger": "^14.2.4",
     "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12"
   },
   "devDependencies": {
-    "eslint": "^8.1.0",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "jest": "^27.3.1",
     "node-mocks-http": "^1.11.0"
   }

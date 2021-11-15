@@ -5,11 +5,14 @@
         "node": true,
         "jest/globals": true
     },
-    "extends": "eslint:recommended",
+    "extends": "airbnb",
     "parserOptions": {
         "ecmaVersion": 13
     },
     "rules": {
-        "indent": ["error", 2]
-    }
+        "indent": ["error", 2],
+        "no-underscore-dangle": "off"
+    },
+    "plugins": ["jest"]
+
 }

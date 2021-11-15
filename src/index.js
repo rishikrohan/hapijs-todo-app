@@ -1,5 +1,3 @@
-'use strict'
-
 const { setupServer } = require('./server');
 
 const init = async () => {
@@ -8,6 +6,6 @@ const init = async () => {
 };
 
 init().catch((err) => {
-  console.log(err)
-  process.exit(1)
-})
+  console.log(err);
+  process.exit(1);
+});

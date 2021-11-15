@@ -1,28 +1,28 @@
-const mongoose = require('../utils/db')
+const mongoose = require('../utils/db');
 
 const TodoSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   done: {
     type: Boolean,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    required: true
+    required: true,
   },
   priority: {
     type: Number,
-    required: true
+    required: true,
   },
   userId: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
-const TodoModel = mongoose.model("Todo", TodoSchema);
+const TodoModel = mongoose.model('Todo', TodoSchema);
 
 module.exports = TodoModel;

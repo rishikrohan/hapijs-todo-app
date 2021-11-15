@@ -9,7 +9,7 @@ const options = {
 
 const swagger = {
   plugin: hapiSwagger,
-  options: options,
+  options,
 };
 
 module.exports = swagger;

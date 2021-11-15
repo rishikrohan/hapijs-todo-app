@@ -1,75 +1,75 @@
 const Joi = require('joi');
-const { getTodo, createTodo, getTodoByID, changeTodo, deleteTodo } = require('../controllers/todo');
+const {
+  getTodo, createTodo, getTodoByID, changeTodo, deleteTodo,
+} = require('../controllers/todo');
 const TodoModel = require('../model/todo.model');
-
-
 
 const createTodoSchema = Joi.object({
   title: Joi.string().min(1).max(140).required(),
   done: Joi.boolean().required(),
   priority: Joi.number().min(1).max(5).required(),
-})
+});
 
 const changeTodoSchema = Joi.object({
   title: Joi.string().min(1).max(140),
   done: Joi.boolean(),
   priority: Joi.number().min(1).max(5),
-})
+});
 
 const todoIDSchema = Joi.object({
   id: Joi.string().min(1).max(140),
-})
+});
 
 const createTodoValidate = {
   validate: {
     payload: createTodoSchema,
-  }
-}
+  },
+};
 
 const getTodoValidate = {
   response: {
     schema: Joi.array().items(TodoModel),
-    failAction: 'log'
-  }
-}
+    failAction: 'log',
+  },
+};
 
 const getTodoByIDValidate = {
   response: getTodoValidate.response,
   validate: {
-    params: todoIDSchema
-  }
-}
+    params: todoIDSchema,
+  },
+};
 
 const changeTodoValidate = {
   validate: {
     params: todoIDSchema,
     payload: changeTodoSchema,
-  }
-}
+  },
+};
 
 const deleteTodoValidate = {
   validate: {
-    params: todoIDSchema
-  }
-}
+    params: todoIDSchema,
+  },
+};
 module.exports = [
   {
     method: 'GET',
     path: '/todo',
     options: {
-      auth: { strategy: 'jwt'},
+      auth: { strategy: 'jwt' },
       tags: ['api', 'todo'],
-      ...getTodoValidate
+      ...getTodoValidate,
     },
-    handler: getTodo
+    handler: getTodo,
   },
   {
     method: 'GET',
     path: '/todo/{id}',
     options: {
-      auth: { strategy: 'jwt'},
+      auth: { strategy: 'jwt' },
       tags: ['api', 'todo'],
-      ...getTodoByIDValidate
+      ...getTodoByIDValidate,
     },
     handler: getTodoByID,
   },
@@ -77,9 +77,9 @@ module.exports = [
     method: 'POST',
     path: '/todo',
     options: {
-      auth: { strategy: 'jwt'},
+      auth: { strategy: 'jwt' },
       tags: ['api', 'todo'],
-      ...createTodoValidate
+      ...createTodoValidate,
     },
     handler: createTodo,
   },
@@ -87,9 +87,9 @@ module.exports = [
     method: 'PUT',
     path: '/todo/{id}',
     options: {
-      auth: { strategy: 'jwt'},
+      auth: { strategy: 'jwt' },
       tags: ['api', 'todo'],
-      ...changeTodoValidate
+      ...changeTodoValidate,
     },
     handler: changeTodo,
   },
@@ -97,11 +97,11 @@ module.exports = [
     method: 'DELETE',
     path: '/todo/{id}',
     options: {
-      auth: { strategy: 'jwt'},
+      auth: { strategy: 'jwt' },
       tags: ['api', 'todo'],
-      ...deleteTodoValidate
+      ...deleteTodoValidate,
     },
     handler: deleteTodo,
   },
-  
+
 ];
