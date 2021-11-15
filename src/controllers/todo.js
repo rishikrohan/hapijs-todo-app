@@ -1,4 +1,5 @@
 const TodoModel = require('../model/todo.model');
+const Boom = require('boom');
 
 /**
  * function to fetch the todo list
@@ -7,14 +8,19 @@ const TodoModel = require('../model/todo.model');
  * @returns
  */
 const getTodo = async (req, h) => {
-  req.logger.info('In handler %s', req.path)
-  const result = await TodoModel.find({userId: req.user._id});
-  return h
+  try {
+    const result = await TodoModel.find({userId: req.user._id});
+    return h
     .response({
       status: 'OK!', 
       data: result
     })
     .code(200);
+  }
+  catch(err) {
+    throw Boom.badRequest(err);
+  }
+  
 };
 
 /**
@@ -22,13 +28,19 @@ const getTodo = async (req, h) => {
  */
 const createTodo = async (req, h) => {
   const {title, done, priority} = req.payload
-  const result = await TodoModel.create({ title, done, priority, date: new Date(), userId: req.user._id });
-  return h
+  try {
+    const result = await TodoModel.create({ title, done, priority, date: Date.now(), userId: req.user._id });
+    return h
     .response({
       status: 'OK!', 
       data: result
     })
     .code(200);
+  }
+  catch(err) {
+    throw Boom.badRequest(err);
+  }
+  
 }
 
 const getTodoByID = async (req, h) => {

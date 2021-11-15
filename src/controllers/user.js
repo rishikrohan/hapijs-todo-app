@@ -9,16 +9,17 @@ const createUser = async (req, h) => {
   try {
     const hash = await hashPassword(password)
     user = await UserModel.create({ username, password: hash, email });
-  }
-  catch(err) {
-    throw Boom.badRequest(err);
-  }
-  return h
+    return h
     .response({
       status: 'OK!', 
       data: { id_token: createToken(user) }
     })
     .code(201);
+  }
+  catch(err) {
+    throw Boom.badRequest(err);
+  }
+  
 }
 
 const loginUser = async (req, h) => {
